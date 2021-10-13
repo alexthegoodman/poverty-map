@@ -1,0 +1,20 @@
+{
+  "folders": [
+    {
+      "name": "ROOT",
+      "path": "."
+    },
+    {
+      "path": "packages/poverty-map-api"
+    },
+    {
+      "path": "packages/poverty-map-client"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      // "**/node_modules/**": true,
+      "packages/*/*": true
+    }
+  }
+}

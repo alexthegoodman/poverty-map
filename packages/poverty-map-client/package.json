@@ -1,0 +1,23 @@
+{
+  "name": "poverty-map-client",
+  "version": "0.0.0",
+  "description": "Next.js Client for Poverty Map",
+  "author": "Alex Woodman <alexthegoodman@gmail.com>",
+  "homepage": "",
+  "license": "MIT",
+  "main": "lib/poverty-map-client.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "poverty-map-client"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  }
+}
