@@ -1,6 +1,6 @@
 {
   "name": "poverty-map-client",
-  "version": "0.0.0",
+  "version": "0.0.1-alpha.0",
   "description": "Next.js Client for Poverty Map",
   "author": "Alex Woodman <alexthegoodman@gmail.com>",
   "homepage": "",
