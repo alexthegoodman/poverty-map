@@ -14,6 +14,8 @@
 
 ## More Information
 
+- `yarn plop` to generate empty components and hooks
+
 ### Lerna Commands
 
 - `yarn bootstrap` or `lerna run start --stream` runs `yarn start` in all packages at once
@@ -25,6 +27,7 @@
 
 - Lerna
 - Volta
+- Plop.js
 - Husky + Commitlint
 - ESLint + Prettier
 
