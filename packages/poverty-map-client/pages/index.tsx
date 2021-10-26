@@ -15,12 +15,19 @@ export enum MetricOptions {
   "AnswerD",
 }
 
+const issueOptions = [
+  faker.random.words(),
+  faker.random.words(),
+  faker.random.words(),
+  faker.random.words(),
+];
+
 const Home: NextPage = () => {
   const testData = [...new Array(10)].map(() => {
     const randomPick = faker.datatype.number({ min: 0, max: 3 });
     return {
-      date: faker.date.past(),
-      issue: faker.random.words(),
+      date: faker.date.past().toISOString(),
+      issue: issueOptions[randomPick],
       details: faker.lorem.paragraph(),
       metricA: faker.datatype.number(),
       metricB: MetricOptions[randomPick],
@@ -37,14 +44,14 @@ const Home: NextPage = () => {
     <section className={styles.container}>
       <section className={styles.topView}>
         <div className={`${styles.panel} ${styles.mapPanel}`}>
-          <TestMap />
+          <TestMap data={testData} />
         </div>
         <div className={`${styles.panel} ${styles.vizPanel}`}>
-          <TestViz />
+          <TestViz data={testData} />
         </div>
       </section>
       <section className={styles.bottomView}>
-        <TestTable />
+        <TestTable data={testData} />
       </section>
     </section>
   );

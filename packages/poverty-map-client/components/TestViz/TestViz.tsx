@@ -1,61 +1,66 @@
 import React from "react";
-import { letterFrequency } from "@visx/mock-data";
 import { Group } from "@visx/group";
 import { Bar } from "@visx/shape";
 import { scaleLinear, scaleBand } from "@visx/scale";
+import { TestVizProps } from "./TestViz.d";
+import { ScaleLinear } from "d3-scale";
 
-// We'll use some mock data from `@visx/mock-data` for this.
-const data = letterFrequency;
+// TODO: optmize garbage collection
+// TODO: complete types
 
-// Define the graph dimensions and margins
-const width = 500;
-const height = 500;
-const margin = { top: 20, bottom: 20, left: 20, right: 20 };
+// graph dimensions and margins
+const graphWidthInPixels = 500;
+const graphHeightInPixels = 500;
+const graphMarginInPixels = { top: 20, bottom: 20, left: 20, right: 20 };
 
-// Then we'll create some bounds
-const xMax = width - margin.left - margin.right;
-const yMax = height - margin.top - margin.bottom;
+// graph bounds
+const boundsWidthInPixels =
+  graphWidthInPixels - graphMarginInPixels.left - graphMarginInPixels.right;
+const boundsHeightInPixels =
+  graphHeightInPixels - graphMarginInPixels.top - graphMarginInPixels.bottom;
 
-// We'll make some helpers to get at the data we want
-const x = (d) => d.letter;
-const y = (d) => +d.frequency * 100;
+const getXDataEntity = (data) => data.metricB;
+const getYDataEntity = (data) => data.issue;
+// const getYDataEntity = (data) => +data.frequency * 100;
+// // And then scale the graph by our data
+const TestViz: React.FC<TestVizProps> = ({ data = null }) => {
+  const xAxis = scaleBand({
+    range: [0, boundsWidthInPixels], // for barcharts, this is the width
+    domain: data.map(getXDataEntity), // provide data via filter function
+    padding: 0.4, // spacing between bars
+  });
+  const yAxis = scaleBand({
+    range: [boundsHeightInPixels, 0],
+    domain: data.map(getYDataEntity),
+  });
 
-// And then scale the graph by our data
-const xScale = scaleBand({
-  range: [0, xMax],
-  round: true,
-  domain: data.map(x),
-  padding: 0.4,
-});
-const yScale = scaleLinear({
-  range: [yMax, 0],
-  round: true,
-  domain: [0, Math.max(...data.map(y))],
-});
+  const compose = (scale, accessor) => (composeData) =>
+    scale(accessor(composeData)); // integrate scales with data to get positions
+  const getXEntityPosition = compose(xAxis, getXDataEntity); // get position on the x axis
+  const getYEntityPosition = compose(yAxis, getYDataEntity); // get position on the y axis
 
-// Compose together the scale and accessor functions to get point functions
-const compose = (scale, accessor) => (data) => scale(accessor(data));
-const xPoint = compose(xScale, x);
-const yPoint = compose(yScale, y);
-
-// Finally we'll embed it all in an SVG
-const TestViz = (props) => {
   return (
-    <svg width={width} height={height}>
-      {data.map((d, i) => {
-        const barHeight = yMax - yPoint(d);
-        return (
-          <Group key={`bar-${i}`}>
-            <Bar
-              x={xPoint(d)}
-              y={yMax - barHeight}
-              height={barHeight}
-              width={xScale.bandwidth()}
-              fill="#fc2e1c"
-            />
-          </Group>
-        );
-      })}
+    <svg width={graphWidthInPixels} height={graphHeightInPixels}>
+      {data ? (
+        data.map((entity, i) => {
+          const barHeight = boundsHeightInPixels - getYEntityPosition(entity);
+          const barWidth = xAxis.bandwidth();
+
+          return (
+            <Group key={`bar-${i}`}>
+              <Bar
+                x={getXEntityPosition(entity)}
+                y={getYEntityPosition(entity)}
+                height={barHeight}
+                width={barWidth}
+                fill="#fc2e1c"
+              />
+            </Group>
+          );
+        })
+      ) : (
+        <></>
+      )}
     </svg>
   );
 };

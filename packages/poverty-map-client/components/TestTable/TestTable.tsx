@@ -8,38 +8,48 @@ const TestTable: React.FC<TestTableProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click TestTable"),
+  data = null,
 }) => {
   const columns = React.useMemo(
     () => [
       {
-        Header: "Column 1",
-        accessor: "col1", // accessor is the "key" in the data
+        Header: "Date",
+        accessor: "date", // accessor is the "key" in the data
+        // Cell: (date) => <>{date}</>,
       },
       {
-        Header: "Column 2",
-        accessor: "col2",
+        Header: "Issue",
+        accessor: "issue",
+      },
+      {
+        Header: "Metric A",
+        accessor: "metricA",
+      },
+      {
+        Header: "Metric B",
+        accessor: "metricB",
       },
     ],
     []
   ) as any;
 
-  const data = React.useMemo(
-    () => [
-      {
-        col1: "Hello",
-        col2: "World",
-      },
-      {
-        col1: "react-table",
-        col2: "rocks",
-      },
-      {
-        col1: "whatever",
-        col2: "you want",
-      },
-    ],
-    []
-  );
+  // const tableData = React.useMemo(
+  //   () => [
+  //     {
+  //       col1: "Hello",
+  //       col2: "World",
+  //     },
+  //     {
+  //       col1: "react-table",
+  //       col2: "rocks",
+  //     },
+  //     {
+  //       col1: "whatever",
+  //       col2: "you want",
+  //     },
+  //   ],
+  //   []
+  // );
 
   const tableInstance = useTable({ columns, data });
 
