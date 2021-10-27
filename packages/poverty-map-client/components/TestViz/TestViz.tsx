@@ -1,6 +1,7 @@
 import React from "react";
 import { Group } from "@visx/group";
 import { Bar } from "@visx/shape";
+import { AxisBottom, AxisLeft } from "@visx/axis";
 import { scaleLinear, scaleBand } from "@visx/scale";
 import { TestVizProps } from "./TestViz.d";
 import { ScaleLinear } from "d3-scale";
@@ -11,7 +12,7 @@ import { ScaleLinear } from "d3-scale";
 // graph dimensions and margins
 const graphWidthInPixels = 500;
 const graphHeightInPixels = 500;
-const graphMarginInPixels = { top: 20, bottom: 20, left: 20, right: 20 };
+const graphMarginInPixels = { top: 0, bottom: 25, left: 100, right: 0 };
 
 // graph bounds
 const boundsWidthInPixels =
@@ -40,24 +41,42 @@ const TestViz: React.FC<TestVizProps> = ({ data = null }) => {
   const getYEntityPosition = compose(yAxis, getYDataEntity); // get position on the y axis
 
   return (
-    <svg width={graphWidthInPixels} height={graphHeightInPixels}>
+    <svg
+      width={graphWidthInPixels}
+      height={graphHeightInPixels}
+      style={{ overflow: "visible", paddingLeft: graphMarginInPixels.left }}
+    >
       {data ? (
-        data.map((entity, index) => {
-          const barHeight = boundsHeightInPixels - getYEntityPosition(entity);
-          const barWidth = xAxis.bandwidth();
+        <>
+          <g>
+            {data.map((entity, index) => {
+              const barHeight =
+                boundsHeightInPixels - getYEntityPosition(entity);
+              const barWidth = xAxis.bandwidth();
 
-          return (
-            <Group key={`bar-${index}`}>
-              <Bar
-                x={getXEntityPosition(entity)}
-                y={getYEntityPosition(entity)}
-                height={barHeight}
-                width={barWidth}
-                fill="#fc2e1c"
-              />
-            </Group>
-          );
-        })
+              return (
+                <Group key={`bar-${index}`}>
+                  <Bar
+                    x={getXEntityPosition(entity)}
+                    y={getYEntityPosition(entity)}
+                    height={barHeight}
+                    width={barWidth}
+                    fill="#fc2e1c"
+                  />
+                </Group>
+              );
+            })}
+          </g>
+
+          <g>
+            <AxisLeft scale={yAxis} orientation="left" />
+            <AxisBottom
+              scale={xAxis}
+              orientation="bottom"
+              top={boundsHeightInPixels}
+            />
+          </g>
+        </>
       ) : (
         <></>
       )}
