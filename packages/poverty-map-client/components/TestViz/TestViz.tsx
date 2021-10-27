@@ -42,12 +42,12 @@ const TestViz: React.FC<TestVizProps> = ({ data = null }) => {
   return (
     <svg width={graphWidthInPixels} height={graphHeightInPixels}>
       {data ? (
-        data.map((entity, i) => {
+        data.map((entity, index) => {
           const barHeight = boundsHeightInPixels - getYEntityPosition(entity);
           const barWidth = xAxis.bandwidth();
 
           return (
-            <Group key={`bar-${i}`}>
+            <Group key={`bar-${index}`}>
               <Bar
                 x={getXEntityPosition(entity)}
                 y={getYEntityPosition(entity)}

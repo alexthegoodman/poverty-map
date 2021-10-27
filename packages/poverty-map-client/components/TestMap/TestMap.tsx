@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { TestMapProps } from "./TestMap.d";
 
-import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
+import ReactMapboxGl, { Layer, Feature, Marker } from "react-mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import useEffect from "react";
 
@@ -13,11 +13,8 @@ const MapInstance = ReactMapboxGl({
     : "",
 });
 
-const TestMap: React.FC<TestMapProps> = ({
-  ref = null,
-  className = "",
-  onClick = (e) => console.info("Click TestMap"),
-}) => {
+const TestMap: React.FC<TestMapProps> = ({ data = null }) => {
+  console.info("map data", data);
   return (
     <>
       {MapInstance ? (
@@ -27,14 +24,55 @@ const TestMap: React.FC<TestMapProps> = ({
             height: "100%",
             width: "100%",
           }}
+          zoom={[4]}
+          center={data[0] ? [data[0].coords.lat, data[0].coords.lng] : [0, 0]}
         >
-          <Layer
+          {data.map((entity, index) => {
+            return (
+              <Marker
+                key={`feature-${index}`}
+                coordinates={[entity.coords.lat, entity.coords.lng]}
+                anchor="bottom"
+                style={{
+                  display: "block",
+                  width: "10px",
+                  height: "10px",
+                  backgroundColor: "red",
+                }}
+                // tabIndex
+              >
+                <div
+                  style={{
+                    display: "block",
+                    width: "10px",
+                    height: "10px",
+                    backgroundColor: "red",
+                    zIndex: 1000,
+                  }}
+                >
+                  <span>{entity.metricB}</span>
+                </div>
+              </Marker>
+            );
+          })}
+
+          {/* <Layer
             type="symbol"
             id="marker"
             layout={{ "icon-image": "marker-15" }}
           >
-            <Feature coordinates={[-0.481747846041145, 51.3233379650232]} />
-          </Layer>
+            
+          </Layer> */}
+
+          {/* <Layer
+            id="3d-buildings"
+            sourceId="composite"
+            sourceLayer="building"
+            filter={['==', 'extrude', 'true']}
+            type="fill-extrusion"
+            minZoom={14}
+            paint={paintLayer}
+          /> */}
         </MapInstance>
       ) : (
         <></>
