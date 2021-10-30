@@ -24,7 +24,7 @@ const TestMap: React.FC<TestMapProps> = ({ data = null }) => {
             height: "100%",
             width: "100%",
           }}
-          zoom={[4]}
+          zoom={[2]}
           center={data[0] ? [data[0].coords.lat, data[0].coords.lng] : [0, 0]}
         >
           {data.map((entity, index) => {

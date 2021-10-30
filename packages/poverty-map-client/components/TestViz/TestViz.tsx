@@ -4,7 +4,10 @@ import { Bar } from "@visx/shape";
 import { AxisBottom, AxisLeft } from "@visx/axis";
 import { scaleLinear, scaleBand } from "@visx/scale";
 import { TestVizProps } from "./TestViz.d";
-import { ScaleLinear } from "d3-scale";
+// import { ScaleLinear } from "d3-scale";
+import { MetricOptions } from "../../pages/index.d";
+import { enumToArray } from "../../pages/index";
+import { maxBy } from "lodash";
 
 // TODO: optmize garbage collection
 // TODO: complete types
@@ -20,25 +23,48 @@ const boundsWidthInPixels =
 const boundsHeightInPixels =
   graphHeightInPixels - graphMarginInPixels.top - graphMarginInPixels.bottom;
 
-const getXDataEntity = (data) => data.metricB;
-const getYDataEntity = (data) => data.issue;
+// const getXDataEntity = (entity) => entity.metricB;
+const getXDataEntity = (entity) => entity.name;
+const getYDataEntity = (entity) => entity.value;
 // const getYDataEntity = (data) => +data.frequency * 100;
 // // And then scale the graph by our data
-const TestViz: React.FC<TestVizProps> = ({ data = null }) => {
+const TestViz: React.FC<TestVizProps> = ({
+  data = null,
+  analysisData = null,
+}) => {
+  const metricOptions = enumToArray(MetricOptions);
+  const maxMetricBTotal = maxBy(
+    analysisData.metricB.totals,
+    getYDataEntity
+  ).value;
+
   const xAxis = scaleBand({
     range: [0, boundsWidthInPixels], // for barcharts, this is the width
-    domain: data.map(getXDataEntity), // provide data via filter function
+    // domain: data.map(getXDataEntity), // provide data via filter function
+    domain: metricOptions,
     padding: 0.4, // spacing between bars
   });
-  const yAxis = scaleBand({
+
+  const yAxis = scaleLinear({
     range: [boundsHeightInPixels, 0],
-    domain: data.map(getYDataEntity),
+    // domain: [0, data.length],
+    // domain: analysisData.metricB.totals.map(getYDataEntity),
+    domain: [0, maxMetricBTotal],
   });
 
-  const compose = (scale, accessor) => (composeData) =>
-    scale(accessor(composeData)); // integrate scales with data to get positions
-  const getXEntityPosition = compose(xAxis, getXDataEntity); // get position on the x axis
-  const getYEntityPosition = compose(yAxis, getYDataEntity); // get position on the y axis
+  // const yAxis = scaleBand({
+  //   range: [boundsHeightInPixels, 0],
+  //   domain: data.map(getYDataEntity),
+  // });
+
+  const composePositionGetter =
+    (scaleValue, getValue) =>
+    (
+      entity // entity passed in via getXEntityPosition(scaleData)
+    ) =>
+      scaleValue(getValue(entity)); // create functions which integrate scales with data and get positions
+  const getXEntityPosition = composePositionGetter(xAxis, getXDataEntity); // a function to get position of entity on the x axis
+  const getYEntityPosition = composePositionGetter(yAxis, getYDataEntity); // a function to get position of entity on the y axis
 
   return (
     <svg
@@ -49,7 +75,7 @@ const TestViz: React.FC<TestVizProps> = ({ data = null }) => {
       {data ? (
         <>
           <g>
-            {data.map((entity, index) => {
+            {analysisData.metricB.totals.map((entity, index) => {
               const barHeight =
                 boundsHeightInPixels - getYEntityPosition(entity);
               const barWidth = xAxis.bandwidth();

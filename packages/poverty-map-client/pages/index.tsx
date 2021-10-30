@@ -7,16 +7,10 @@ import TestMap from "../components/TestMap/TestMap";
 import TestTable from "../components/TestTable/TestTable";
 import TestViz from "../components/TestViz/TestViz";
 import styles from "../styles/Home.module.scss";
+import { MetricOptions, MapTestData, MapAnalyticsData } from "./index.d";
 
-export enum MetricOptions {
-  "AnswerA",
-  "AnswerB",
-  "AnswerC",
-  "AnswerD",
-}
-
-const Home: NextPage<any> = ({ testData = null }) => {
-  console.info("testData", testData);
+const Home: NextPage<any> = ({ testData = null, analysisData = null }) => {
+  console.info("index browser", testData, analysisData);
 
   return (
     <section className={styles.container}>
@@ -28,7 +22,7 @@ const Home: NextPage<any> = ({ testData = null }) => {
           <TestMap data={testData} />
         </div>
         <div className={`${styles.panel} ${styles.vizPanel}`}>
-          <TestViz data={testData} />
+          <TestViz data={testData} analysisData={analysisData} />
         </div>
       </section>
       <section className={styles.bottomView}>
@@ -36,6 +30,28 @@ const Home: NextPage<any> = ({ testData = null }) => {
       </section>
     </section>
   );
+};
+
+export const enumToArray = (enumObj: any) => {
+  let arr: string[] = [];
+  Object.keys(enumObj).forEach((prop: any) => {
+    if (typeof enumObj[prop] === "string") {
+      arr[prop] = enumObj[prop];
+    }
+  });
+  return arr;
+};
+
+export const getTotals = (
+  data: MapTestData[],
+  property: string,
+  value: string
+) => {
+  const total = data.reduce(
+    (acc: number, curr: any) => (curr[property] === value ? acc + 1 : acc),
+    0
+  );
+  return total;
 };
 
 export async function getStaticProps() {
@@ -46,14 +62,16 @@ export async function getStaticProps() {
     faker.random.words(),
   ];
 
-  const testData = [...new Array(10)].map(() => {
-    const randomPick = faker.datatype.number({ min: 0, max: 3 });
+  // TODO: Immutable
+  const testData: MapTestData[] = [...new Array(10)].map(() => {
+    const randomPick1 = faker.datatype.number({ min: 0, max: 3 });
+    const randomPick2 = faker.datatype.number({ min: 0, max: 3 });
     return {
       date: faker.date.past().toISOString(),
-      issue: issueOptions[randomPick],
+      issue: issueOptions[randomPick1],
       details: faker.lorem.paragraph(),
       metricA: faker.datatype.number(),
-      metricB: MetricOptions[randomPick],
+      metricB: MetricOptions[randomPick2],
       coords: {
         lat: parseFloat(faker.address.latitude(-30, 30)),
         lng: parseFloat(faker.address.longitude(-30, 30)),
@@ -61,14 +79,34 @@ export async function getStaticProps() {
     };
   });
 
+  const analysisData: MapAnalyticsData = {
+    issue: { totals: [] },
+    metricB: { totals: [] },
+  };
+
+  // derive issue totals
+  issueOptions.forEach((issue: string) => {
+    const issueTotal = getTotals(testData, "issue", issue);
+    analysisData.issue.totals.push({ name: issue, value: issueTotal });
+  });
+
+  // derive metricB totals
+  enumToArray(MetricOptions).forEach((metric) => {
+    const metricTotal = getTotals(testData, "metricB", metric as string);
+    analysisData.metricB.totals.push({
+      name: metric as string,
+      value: metricTotal,
+    });
+  });
+
+  console.info("index data", testData, analysisData);
+
   return {
     props: {
       testData,
+      analysisData,
     },
-    // Next.js will attempt to re-generate the page:
-    // - When a request comes in
-    // - At most once every 10 seconds
-    revalidate: 10, // In seconds
+    revalidate: 10, // Re-gen every 10 seconds max
   };
 }
 
