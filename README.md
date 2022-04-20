@@ -4,6 +4,9 @@
 
 ### Setup Enviornment
 
+- `brew install volta`
+- `yarn global add dotenv dotenv-cli`
+
 - `volta install node`
 - `volta install yarn`
 
@@ -11,6 +14,10 @@
 
 - `yarn setup`
 - `yarn start`
+
+### Setup poverty-map-client
+
+- `yarn build`
 
 ## More Information
 

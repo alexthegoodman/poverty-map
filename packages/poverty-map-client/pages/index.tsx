@@ -7,7 +7,7 @@ import TestMap from "../components/TestMap/TestMap";
 import TestTable from "../components/TestTable/TestTable";
 import TestViz from "../components/TestViz/TestViz";
 import styles from "../styles/Home.module.scss";
-import { MetricOptions, MapTestData, MapAnalyticsData } from "./index.d";
+import { MetricOptions, MapTestData, MapAnalyticsData } from "../def/index.d";
 
 const Home: NextPage<any> = ({ testData = null, analysisData = null }) => {
   console.info("index browser", testData, analysisData);

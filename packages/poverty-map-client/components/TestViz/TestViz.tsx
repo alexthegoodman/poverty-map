@@ -5,7 +5,7 @@ import { AxisBottom, AxisLeft } from "@visx/axis";
 import { scaleLinear, scaleBand } from "@visx/scale";
 import { TestVizProps } from "./TestViz.d";
 // import { ScaleLinear } from "d3-scale";
-import { MetricOptions } from "../../pages/index.d";
+import { MetricOptions } from "../../def/index.d";
 import { enumToArray } from "../../pages/index";
 import { maxBy } from "lodash";
 
@@ -24,8 +24,8 @@ const boundsHeightInPixels =
   graphHeightInPixels - graphMarginInPixels.top - graphMarginInPixels.bottom;
 
 // const getXDataEntity = (entity) => entity.metricB;
-const getXDataEntity = (entity) => entity.name;
-const getYDataEntity = (entity) => entity.value;
+const getXDataEntity = (entity: any) => entity.name;
+const getYDataEntity = (entity: any) => entity.value;
 // const getYDataEntity = (data) => +data.frequency * 100;
 // // And then scale the graph by our data
 const TestViz: React.FC<TestVizProps> = ({
@@ -58,9 +58,9 @@ const TestViz: React.FC<TestVizProps> = ({
   // });
 
   const composePositionGetter =
-    (scaleValue, getValue) =>
+    (scaleValue: any, getValue: any) =>
     (
-      entity // entity passed in via getXEntityPosition(scaleData)
+      entity: any // entity passed in via getXEntityPosition(scaleData)
     ) =>
       scaleValue(getValue(entity)); // create functions which integrate scales with data and get positions
   const getXEntityPosition = composePositionGetter(xAxis, getXDataEntity); // a function to get position of entity on the x axis
@@ -75,7 +75,7 @@ const TestViz: React.FC<TestVizProps> = ({
       {data ? (
         <>
           <g>
-            {analysisData.metricB.totals.map((entity, index) => {
+            {analysisData.metricB.totals.map((entity: any, index: number) => {
               const barHeight =
                 boundsHeightInPixels - getYEntityPosition(entity);
               const barWidth = xAxis.bandwidth();

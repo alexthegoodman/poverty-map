@@ -27,7 +27,7 @@ const TestMap: React.FC<TestMapProps> = ({ data = null }) => {
           zoom={[2]}
           center={data[0] ? [data[0].coords.lat, data[0].coords.lng] : [0, 0]}
         >
-          {data.map((entity, index) => {
+          {data.map((entity: any, index: number) => {
             return (
               <Marker
                 key={`feature-${index}`}

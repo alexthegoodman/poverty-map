@@ -1,11 +1,11 @@
 import React, { useState, useEffect, createContext } from "react";
 
-export const use{{ name }} = (text = "") => {
-  const [json, setJson] = useState(null);
+// export const use{{ name }} = (text = "") => {
+//   const [json, setJson] = useState(null);
 
-  useEffect(() => {});
+//   useEffect(() => {});
 
-  return {
-    json,
-  };
-};
+//   return {
+//     json,
+//   };
+// };
