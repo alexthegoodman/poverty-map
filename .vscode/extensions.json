@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "aaron-bond.better-comments",
+    "mikestead.dotenv",
+    "tobermory.es6-string-html",
+    "eamodio.gitlens",
+    "kumar-harsh.graphql-for-vscode",
+    "christian-kohler.npm-intellisense",
+    "esbenp.prettier-vscode"
+  ]
+}

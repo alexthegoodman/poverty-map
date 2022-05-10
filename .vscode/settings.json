@@ -1,0 +1,9 @@
+{
+  "editor.formatOnSave": true,
+  "search.exclude": {
+    "**/bower_components": true,
+    "**/node_modules": false
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.tabSize": 2
+}
