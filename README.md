@@ -4,6 +4,10 @@
 
 ### Setup Enviornment
 
+- Install the recomended VS Code extensions
+- Enable Prettier as the Default Formatter
+- Enable Format on Save
+
 - `brew install volta`
 - `yarn global add dotenv dotenv-cli`
 
