@@ -53,7 +53,25 @@ module.exports = function (plop) {
       {
         type: "add",
         path: "hooks/use{{name}}.ts",
-        templateFile: "generators/GenericComponent/useHook.ts",
+        templateFile: "generators/GenericHook/useHook.ts",
+      },
+    ],
+  });
+
+  plop.setGenerator("context", {
+    description: "Generic React / TypeScript Context",
+    prompts: [
+      {
+        type: "input",
+        name: "name",
+        message: "Input Context Name",
+      },
+    ],
+    actions: [
+      {
+        type: "add",
+        path: "context/{{name}}/{{name}}.ts",
+        templateFile: "generators/GenericContext/GenericContext.ts",
       },
     ],
   });
