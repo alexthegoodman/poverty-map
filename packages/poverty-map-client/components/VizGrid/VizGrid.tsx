@@ -19,18 +19,19 @@ const VizGrid: React.FC<VizGridProps> = ({
   analysisData = null,
 }) => {
   return (
-    <section className="container">
-      <section className="topView">
-        <div className={`panel mapPanel`}>
-          <TestMap data={testData} />
-        </div>
-        <div className={`panel vizPanel`}>
+    <section className="vizGrid">
+      <div className="vizGridInner">
+        <div className="col col1">
           <TestViz data={testData} analysisData={analysisData} />
         </div>
-      </section>
-      <section className="bottomView">
-        <TestTable data={testData} />
-      </section>
+        <div className="col col2">
+          <TestMap data={testData} />
+        </div>
+        <div className="col col3">
+          <TestTable data={testData} />
+          <TestViz data={testData} analysisData={analysisData} />
+        </div>
+      </div>
     </section>
   );
 };

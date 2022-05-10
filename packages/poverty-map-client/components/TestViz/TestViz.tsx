@@ -13,8 +13,8 @@ import { maxBy } from "lodash";
 // TODO: complete types
 
 // graph dimensions and margins
-const graphWidthInPixels = 500;
-const graphHeightInPixels = 500;
+const graphWidthInPixels = 400;
+const graphHeightInPixels = 400;
 const graphMarginInPixels = { top: 0, bottom: 25, left: 100, right: 0 };
 
 // graph bounds

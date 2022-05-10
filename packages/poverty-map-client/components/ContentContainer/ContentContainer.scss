@@ -17,10 +17,10 @@
     width: 100%;
 
     .chapterNavWrapper {
-      width: 10%;
+      width: $headerHeightDesktop;
     }
     .vizGridWrapper {
-      width: 90%;
+      width: calc(100% - $headerHeightDesktop);
     }
   }
 }

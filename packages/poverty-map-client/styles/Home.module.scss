@@ -3,16 +3,4 @@ $headerHeightDesktop: 170px;
 @import "../components/BrandLogo/BrandLogo";
 @import "../components/StoryNav/StoryNav";
 @import "../components/ContentContainer/ContentContainer";
-
-.container {
-}
-
-.topView {
-  display: flex;
-  flex-direction: row;
-}
-
-.panel {
-  position: relative;
-  width: 50%;
-}
+@import "../components/VizGrid/VizGrid";
