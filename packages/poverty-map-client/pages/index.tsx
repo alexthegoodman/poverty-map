@@ -1,35 +1,14 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
+
 import * as faker from "faker";
 
-import TestMap from "../components/TestMap/TestMap";
-import TestTable from "../components/TestTable/TestTable";
-import TestViz from "../components/TestViz/TestViz";
-import styles from "../styles/Home.module.scss";
 import { MetricOptions, MapTestData, MapAnalyticsData } from "../def/index.d";
+import ContentContainer from "../components/ContentContainer/ContentContainer";
 
 const Home: NextPage<any> = ({ testData = null, analysisData = null }) => {
   console.info("index browser", testData, analysisData);
 
-  return (
-    <section className={styles.container}>
-      <section>
-        <h1>Poverty Map 2021</h1>
-      </section>
-      <section className={styles.topView}>
-        <div className={`${styles.panel} ${styles.mapPanel}`}>
-          <TestMap data={testData} />
-        </div>
-        <div className={`${styles.panel} ${styles.vizPanel}`}>
-          <TestViz data={testData} analysisData={analysisData} />
-        </div>
-      </section>
-      <section className={styles.bottomView}>
-        <TestTable data={testData} />
-      </section>
-    </section>
-  );
+  return <ContentContainer testData={testData} analysisData={analysisData} />;
 };
 
 export const enumToArray = (enumObj: any) => {

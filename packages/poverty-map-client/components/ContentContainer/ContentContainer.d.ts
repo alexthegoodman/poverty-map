@@ -1,4 +1,4 @@
-export interface VizGridProps {
+export interface ContentContainerProps {
   ref?: React.Ref<any>;
   className?: string;
   testData?: any;
