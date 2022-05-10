@@ -4,6 +4,7 @@ import {
   NavContextReducer,
   NavContextState,
 } from "../../context/NavContext/NavContext";
+import BrandLogo from "../BrandLogo/BrandLogo";
 import ChapterNav from "../ChapterNav/ChapterNav";
 import StoryNav from "../StoryNav/StoryNav";
 import VizGrid from "../VizGrid/VizGrid";
@@ -23,17 +24,18 @@ const ContentContainer: React.FC<ContentContainerProps> = ({
 
   return (
     <NavContext.Provider value={{ state, dispatch }}>
-      <header>
-        <div>
+      <header className="contentHeader">
+        <div className="contentHeaderInner">
+          <BrandLogo />
           <StoryNav />
         </div>
       </header>
-      <section>
-        <div>
-          <div>
+      <section className="contentWrapper">
+        <div className="contentWrapperInner">
+          <div className="chapterNavWrapper">
             <ChapterNav />
           </div>
-          <div>
+          <div className="vizGridWrapper">
             <VizGrid testData={testData} analysisData={analysisData} />
           </div>
         </div>

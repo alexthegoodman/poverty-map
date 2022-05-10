@@ -10,11 +10,11 @@ const StoryNav: React.FC<StoryNavProps> = ({
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
   return (
-    <section>
-      <div>
-        <nav>
-          <ul>
-            <li>
+    <section className="storyNav">
+      <div className="storyNavInner">
+        <nav className="storyNavListWrapper">
+          <ul className="storyNavList">
+            <li className="selected">
               <a href="#!">Hunger</a>
             </li>
             <li>

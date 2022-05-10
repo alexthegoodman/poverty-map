@@ -20,9 +20,6 @@ const VizGrid: React.FC<VizGridProps> = ({
 }) => {
   return (
     <section className="container">
-      <section>
-        <h1>Poverty Map 2021</h1>
-      </section>
       <section className="topView">
         <div className={`panel mapPanel`}>
           <TestMap data={testData} />

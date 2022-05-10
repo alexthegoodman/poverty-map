@@ -1,1 +1,26 @@
-/** Styles **/
+.contentHeader {
+  width: 100vw;
+
+  .contentHeaderInner {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+}
+
+.contentWrapper {
+  width: 100vw;
+
+  .contentWrapperInner {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    .chapterNavWrapper {
+      width: 10%;
+    }
+    .vizGridWrapper {
+      width: 90%;
+    }
+  }
+}

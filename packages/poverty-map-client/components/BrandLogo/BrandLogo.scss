@@ -1,0 +1,24 @@
+.brandLogo {
+  width: $headerHeightDesktop;
+  height: $headerHeightDesktop;
+  background-color: crimson;
+
+  .brandLogoInner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .logoWordmark {
+      font-size: 32px;
+      width: min-content;
+      display: block;
+      color: white;
+
+      strong {
+        display: block;
+      }
+    }
+  }
+}

@@ -1,9 +1,10 @@
+$headerHeightDesktop: 170px;
+
+@import "../components/BrandLogo/BrandLogo";
+@import "../components/StoryNav/StoryNav";
+@import "../components/ContentContainer/ContentContainer";
+
 .container {
-  width: 1200px;
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  background: #e5e5e5;
 }
 
 .topView {

@@ -70,7 +70,12 @@ const TestViz: React.FC<TestVizProps> = ({
     <svg
       width={graphWidthInPixels}
       height={graphHeightInPixels}
-      style={{ overflow: "visible", paddingLeft: graphMarginInPixels.left }}
+      style={{
+        overflow: "visible",
+        paddingLeft: graphMarginInPixels.left,
+        // minWidth: graphWidthInPixels,
+        // width: "100%",
+      }}
     >
       {data ? (
         <>
