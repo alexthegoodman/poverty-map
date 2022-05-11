@@ -2,7 +2,7 @@
 
 Poverty Map is about showing the entire context of major life-threatening and quality-of-life-altering crises around the world in an easy to understand format.
 
-By distilling the the context, such as what nutrition is required, where food is grown, how it's transported, and what it's sold for, and then displaying via graphs, charts, and maps - we can shed light on the entire problem and help spur action around these immensely important issues.
+By distilling the context, such as what nutrition is required, where food is grown, how it's transported, and what it's sold for, and then displaying it via graphs, charts, and maps - we can shed light on the entire problem and help spur action around these immensely important issues.
 
 ## Getting Started
 
