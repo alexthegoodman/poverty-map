@@ -16,10 +16,10 @@ const ChapterNav: React.FC<ChapterNavProps> = ({
   console.info("ChapterNav", state, dispatch);
 
   return (
-    <section>
-      <div>
-        <nav>
-          <ul>
+    <section className="chapterNav">
+      <div className="chapterNavInner">
+        <nav className="chapterNavListWrapper">
+          <ul className="chapterNavList">
             <>
               {StoryChapterList.map((story, i) => {
                 if (state.selectedStory === i) {

@@ -1,6 +1,11 @@
 $headerHeightDesktop: 170px;
 
+$lightGreyColor: #7b7b7b;
+$midGreyColor: #555555;
+$highlightColor: crimson;
+
 @import "../components/BrandLogo/BrandLogo";
 @import "../components/StoryNav/StoryNav";
+@import "../components/ChapterNav/ChapterNav";
 @import "../components/ContentContainer/ContentContainer";
 @import "../components/VizGrid/VizGrid";

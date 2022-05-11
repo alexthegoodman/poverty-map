@@ -13,6 +13,11 @@ a {
   text-decoration: none;
 }
 
+ul,
+ol {
+  padding: 0;
+}
+
 * {
   box-sizing: border-box;
 }
