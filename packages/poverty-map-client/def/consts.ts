@@ -1,8 +1,20 @@
+import { NutritionRequirements } from "./chapters/hunger.real-need";
+
+export type SelectedChapter = {
+  chapter: StoryChapter | null;
+};
+
+export type StoryChapter = {
+  title: string;
+  cards?: Array<{
+    sourceData: any;
+    col: number;
+  }>;
+};
+
 export type StoryChapterList = Array<{
   title: string;
-  chapters: Array<{
-    title: string;
-  }>;
+  chapters: Array<StoryChapter>;
 }>;
 
 export const StoryChapterList: StoryChapterList = [
@@ -11,6 +23,12 @@ export const StoryChapterList: StoryChapterList = [
     chapters: [
       {
         title: "Real Need",
+        cards: [
+          {
+            sourceData: NutritionRequirements,
+            col: 1,
+          },
+        ],
       },
       {
         title: "Hard Land",

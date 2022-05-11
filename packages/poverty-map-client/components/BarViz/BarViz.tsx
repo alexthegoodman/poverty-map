@@ -3,8 +3,7 @@ import { Group } from "@visx/group";
 import { Bar } from "@visx/shape";
 import { AxisBottom, AxisLeft } from "@visx/axis";
 import { scaleLinear, scaleBand } from "@visx/scale";
-import { TestVizProps } from "./TestViz.d";
-// import { ScaleLinear } from "d3-scale";
+import { BarVizProps } from "./BarViz.d";
 import { MetricOptions } from "../../def/index.d";
 import { maxBy } from "lodash";
 import { enumToArray } from "../../utils/arrays";
@@ -23,20 +22,18 @@ const boundsWidthInPixels =
 const boundsHeightInPixels =
   graphHeightInPixels - graphMarginInPixels.top - graphMarginInPixels.bottom;
 
-// const getXDataEntity = (entity) => entity.metricB;
-const getXDataEntity = (entity: any) => entity.name;
-const getYDataEntity = (entity: any) => entity.value;
-// const getYDataEntity = (data) => +data.frequency * 100;
-// // And then scale the graph by our data
-const TestViz: React.FC<TestVizProps> = ({
-  data = null,
-  analysisData = null,
-}) => {
-  const metricOptions = enumToArray(MetricOptions);
-  const maxMetricBTotal = maxBy(
-    analysisData.metricB.totals,
-    getYDataEntity
-  ).value;
+// analysisData entity data selectors
+const getXDataEntity = (entity: any) => entity.title;
+const getYDataEntity = (entity: any) => entity.low;
+
+const BarViz: React.FC<BarVizProps> = ({ analysisData = null }) => {
+  const maxMetricEntity = maxBy(analysisData, getYDataEntity);
+  const metricOptions = analysisData.map((dataPoint, i) => {
+    return dataPoint.title;
+  });
+  const maxMetricYTotal = getYDataEntity(maxMetricEntity);
+
+  // console.info("totals", metricOptions, maxMetricEntity, maxMetricYTotal);
 
   const xAxis = scaleBand({
     range: [0, boundsWidthInPixels], // for barcharts, this is the width
@@ -49,7 +46,7 @@ const TestViz: React.FC<TestVizProps> = ({
     range: [boundsHeightInPixels, 0],
     // domain: [0, data.length],
     // domain: analysisData.metricB.totals.map(getYDataEntity),
-    domain: [0, maxMetricBTotal],
+    domain: [0, maxMetricYTotal],
   });
 
   // const yAxis = scaleBand({
@@ -77,13 +74,22 @@ const TestViz: React.FC<TestVizProps> = ({
         // width: "100%",
       }}
     >
-      {data ? (
+      {analysisData ? (
         <>
+          {/** Viz Data */}
           <g>
-            {analysisData.metricB.totals.map((entity: any, index: number) => {
+            {analysisData.map((entity: any, index: number) => {
               const barHeight =
                 boundsHeightInPixels - getYEntityPosition(entity);
               const barWidth = xAxis.bandwidth();
+
+              console.info(
+                "entity",
+                entity,
+                barHeight,
+                barWidth,
+                getYDataEntity(entity)
+              );
 
               return (
                 <Group key={`bar-${index}`}>
@@ -99,6 +105,7 @@ const TestViz: React.FC<TestVizProps> = ({
             })}
           </g>
 
+          {/** Viz Outline */}
           <g>
             <AxisLeft scale={yAxis} orientation="left" />
             <AxisBottom
@@ -115,4 +122,4 @@ const TestViz: React.FC<TestVizProps> = ({
   );
 };
 
-export default TestViz;
+export default BarViz;
