@@ -1,10 +1,11 @@
 import React, { useState, useReducer } from "react";
 
 export interface NavContextState {
-  count: number;
+  selectedStory: number;
+  selectedChapter: number; // TODO: useId()?
 }
 
-export const NavContextState = { count: 0 };
+export const NavContextState = { selectedStory: 0, selectedChapter: 0 };
 
 export const NavContextReducer = (state: NavContextState, action: any) => {
   switch (action.type) {

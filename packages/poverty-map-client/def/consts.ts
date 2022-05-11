@@ -1,4 +1,11 @@
-export const StoryChapterList = [
+export type StoryChapterList = Array<{
+  title: string;
+  chapters: Array<{
+    title: string;
+  }>;
+}>;
+
+export const StoryChapterList: StoryChapterList = [
   {
     title: "Hunger",
     chapters: [
