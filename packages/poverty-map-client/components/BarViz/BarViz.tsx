@@ -4,9 +4,7 @@ import { Bar } from "@visx/shape";
 import { AxisBottom, AxisLeft } from "@visx/axis";
 import { scaleLinear, scaleBand } from "@visx/scale";
 import { BarVizProps } from "./BarViz.d";
-import { MetricOptions } from "../../def/index.d";
 import { maxBy } from "lodash";
-import { enumToArray } from "../../utils/arrays";
 
 // TODO: optmize garbage collection
 // TODO: complete types
@@ -83,13 +81,13 @@ const BarViz: React.FC<BarVizProps> = ({ analysisData = null }) => {
                 boundsHeightInPixels - getYEntityPosition(entity);
               const barWidth = xAxis.bandwidth();
 
-              console.info(
-                "entity",
-                entity,
-                barHeight,
-                barWidth,
-                getYDataEntity(entity)
-              );
+              // console.info(
+              //   "entity",
+              //   entity,
+              //   barHeight,
+              //   barWidth,
+              //   getYDataEntity(entity)
+              // );
 
               return (
                 <Group key={`bar-${index}`}>
