@@ -1,6 +1,6 @@
 # Poverty Map 2022
 
-[![Alt text](./wip-map.png)]()
+<!-- [![Alt text](./wip-map.png)]() -->
 
 Poverty Map is about showing the entire context of major life-threatening and quality-of-life-altering crises around the world in an easy to understand format.
 
