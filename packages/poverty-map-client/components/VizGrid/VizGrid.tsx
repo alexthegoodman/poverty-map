@@ -4,6 +4,9 @@ import { VizGridProps } from "./VizGrid.d";
 import { NavContext } from "../../context/NavContext/NavContext";
 import { useChapter } from "../../hooks/useChapter";
 import BarViz from "../BarViz/BarViz";
+import TestMap from "../TestMap/TestMap";
+import TestTable from "../TestTable/TestTable";
+import InfoCard from "../InfoCard/InfoCard";
 
 const VizGrid: React.FC<VizGridProps> = ({
   ref = null,
@@ -33,8 +36,13 @@ const VizGrid: React.FC<VizGridProps> = ({
             }
           })}
         </div>
-        <div className="col col2">{/* <TestMap data={testData} /> */}</div>
-        <div className="col col3">{/* <TestTable data={testData} /> */}</div>
+        <div className="col col2">
+          <InfoCard />
+          <TestMap data={testData} />
+        </div>
+        <div className="col col3">
+          <TestTable data={testData} />
+        </div>
       </div>
     </section>
   );

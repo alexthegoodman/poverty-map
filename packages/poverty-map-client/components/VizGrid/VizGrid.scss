@@ -4,8 +4,20 @@
     flex-direction: row;
 
     .col {
-      width: calc(100% / 3);
-      padding-right: 25px;
+      // width: calc(100% / 3);
+      // padding-right: 25px;
+    }
+
+    .col1 {
+      width: calc(25% - 20px);
+      margin-right: 30px;
+    }
+    .col2 {
+      width: calc(50% - 20px);
+      margin-right: 30px;
+    }
+    .col3 {
+      width: calc(25% - 20px);
     }
   }
 }

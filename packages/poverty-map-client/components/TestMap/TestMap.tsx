@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { TestMapProps } from "./TestMap.d";
 
-import ReactMapboxGl, { Layer, Feature, Marker } from "react-mapbox-gl";
+import ReactMapboxGl, { Layer, Feature, Marker, Image } from "react-mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import useEffect from "react";
 
@@ -21,6 +21,7 @@ const TestMap: React.FC<TestMapProps> = ({ data = null }) => {
         <MapInstance
           style="mapbox://styles/mapbox/streets-v9"
           containerStyle={{
+            maxHeight: 450,
             height: "100%",
             width: "100%",
           }}
@@ -29,40 +30,50 @@ const TestMap: React.FC<TestMapProps> = ({ data = null }) => {
         >
           {data.map((entity: any, index: number) => {
             return (
-              <Marker
-                key={`feature-${index}`}
-                coordinates={[entity.coords.lat, entity.coords.lng]}
-                anchor="bottom"
-                style={{
-                  display: "block",
-                  width: "10px",
-                  height: "10px",
-                  backgroundColor: "red",
-                }}
-                // tabIndex
-              >
-                <div
+              <>
+                <Marker
+                  key={`feature-${index}`}
+                  coordinates={[entity.coords.lat, entity.coords.lng]}
+                  anchor="bottom"
                   style={{
                     display: "block",
                     width: "10px",
                     height: "10px",
                     backgroundColor: "red",
-                    zIndex: 1000,
                   }}
+                  // tabIndex
                 >
-                  <span>{entity.metricB}</span>
-                </div>
-              </Marker>
+                  <div
+                    style={{
+                      display: "block",
+                      width: "10px",
+                      height: "10px",
+                      backgroundColor: "red",
+                      zIndex: 1000,
+                    }}
+                  >
+                    <span>{entity.metricB}</span>
+                  </div>
+                </Marker>
+              </>
             );
           })}
 
-          {/* <Layer
-            type="symbol"
+          <Layer
+            type="raster"
             id="marker"
-            layout={{ "icon-image": "marker-15" }}
+            layout={{ "icon-image": "image-uid" }}
           >
-            
-          </Layer> */}
+            <Feature coordinates={[42.9758128, -85.4065152]}>
+              <Image
+                id="image-uid"
+                url="https://via.placeholder.com/250"
+                // options={{
+                //   content: [16, 16, 300, 384],
+                // }}
+              ></Image>
+            </Feature>
+          </Layer>
 
           {/* <Layer
             id="3d-buildings"
