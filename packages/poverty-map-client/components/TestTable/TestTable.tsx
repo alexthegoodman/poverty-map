@@ -58,7 +58,7 @@ const TestTable: React.FC<TestTableProps> = ({
 
   return (
     // apply the table props
-    <table {...getTableProps()}>
+    <table {...getTableProps()} className="table">
       <thead>
         {
           // Loop over the header rows

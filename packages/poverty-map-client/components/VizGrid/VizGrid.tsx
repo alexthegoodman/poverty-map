@@ -24,8 +24,15 @@ const VizGrid: React.FC<VizGridProps> = ({
     <section className="vizGrid">
       <div className="vizGridInner">
         <div className="col col1">
+          <InfoCard />
+        </div>
+        <div className="col col2">
+          <TestMap data={testData} />
+          <TestTable data={testData} />
+        </div>
+        <div className="col col3">
           {chapter?.cards?.map((card, i) => {
-            if (card.col === 1) {
+            if (card.col === 3) {
               const { sourceData } = card;
 
               if (Array.isArray(sourceData.data[0])) {
@@ -35,13 +42,6 @@ const VizGrid: React.FC<VizGridProps> = ({
               }
             }
           })}
-        </div>
-        <div className="col col2">
-          <InfoCard />
-          <TestMap data={testData} />
-        </div>
-        <div className="col col3">
-          <TestTable data={testData} />
         </div>
       </div>
     </section>

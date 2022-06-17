@@ -1,1 +1,26 @@
-/** Styles **/
+.table {
+  width: 100%;
+
+  th,
+  td {
+    padding: 10px;
+    text-align: left;
+  }
+
+  thead {
+    tr {
+      th {
+        font-weight: 600;
+      }
+    }
+  }
+  tbody {
+    tr {
+      &:nth-of-type(2n) {
+        background-color: #f3f3f3;
+      }
+      td {
+      }
+    }
+  }
+}

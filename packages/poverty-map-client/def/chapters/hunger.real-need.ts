@@ -52,6 +52,36 @@ export const NutritionRequirements = {
   ],
 };
 
+// info card
+export const NutritionInformation = {
+  info: {
+    title: "Real Nutrition Needs",
+    source: "",
+  },
+  data: [
+    [
+      {
+        content: "",
+      },
+    ],
+  ],
+};
+
+// map + table
+export const NutritionMapData = {
+  info: {
+    title: "Global Nutrition Data",
+    source: "",
+  },
+  data: [
+    [
+      {
+        content: "",
+      },
+    ],
+  ],
+};
+
 // bar chart
 export const malnutrition = [];
 

@@ -10,9 +10,9 @@ import { maxBy } from "lodash";
 // TODO: complete types
 
 // graph dimensions and margins
-const graphWidthInPixels = 400;
-const graphHeightInPixels = 400;
-const graphMarginInPixels = { top: 0, bottom: 25, left: 100, right: 0 };
+const graphWidthInPixels = 350;
+const graphHeightInPixels = 300;
+const graphMarginInPixels = { top: 0, bottom: 25, left: 25, right: 0 };
 
 // graph bounds
 const boundsWidthInPixels =
@@ -62,61 +62,70 @@ const BarViz: React.FC<BarVizProps> = ({ analysisData = null }) => {
   const getYEntityPosition = composePositionGetter(yAxis, getYDataEntity); // a function to get position of entity on the y axis
 
   return (
-    <svg
-      width={graphWidthInPixels}
-      height={graphHeightInPixels}
-      style={{
-        overflow: "visible",
-        paddingLeft: graphMarginInPixels.left,
-        // minWidth: graphWidthInPixels,
-        // width: "100%",
-      }}
-    >
-      {analysisData ? (
-        <>
-          {/** Viz Data */}
-          <g>
-            {analysisData.map((entity: any, index: number) => {
-              const barHeight =
-                boundsHeightInPixels - getYEntityPosition(entity);
-              const barWidth = xAxis.bandwidth();
+    <section className="barViz">
+      <div className="barVizInner">
+        <svg
+          width={graphWidthInPixels}
+          height={graphHeightInPixels}
+          style={{
+            overflow: "visible",
+            paddingLeft: graphMarginInPixels.left,
+            // minWidth: graphWidthInPixels,
+            // width: "100%",
+          }}
+        >
+          {analysisData ? (
+            <>
+              {/** Viz Data */}
+              <g>
+                {analysisData.map((entity: any, index: number) => {
+                  const barHeight =
+                    boundsHeightInPixels - getYEntityPosition(entity);
+                  const barWidth = xAxis.bandwidth();
 
-              // console.info(
-              //   "entity",
-              //   entity,
-              //   barHeight,
-              //   barWidth,
-              //   getYDataEntity(entity)
-              // );
+                  // console.info(
+                  //   "entity",
+                  //   entity,
+                  //   barHeight,
+                  //   barWidth,
+                  //   getYDataEntity(entity)
+                  // );
 
-              return (
-                <Group key={`bar-${index}`}>
-                  <Bar
-                    x={getXEntityPosition(entity)}
-                    y={getYEntityPosition(entity)}
-                    height={barHeight}
-                    width={barWidth}
-                    fill="#fc2e1c"
-                  />
-                </Group>
-              );
-            })}
-          </g>
+                  return (
+                    <Group key={`bar-${index}`}>
+                      <Bar
+                        x={getXEntityPosition(entity)}
+                        y={getYEntityPosition(entity)}
+                        height={barHeight}
+                        width={barWidth}
+                        fill="#E74E3F"
+                      />
+                    </Group>
+                  );
+                })}
+              </g>
 
-          {/** Viz Outline */}
-          <g>
-            <AxisLeft scale={yAxis} orientation="left" />
-            <AxisBottom
-              scale={xAxis}
-              orientation="bottom"
-              top={boundsHeightInPixels}
-            />
-          </g>
-        </>
-      ) : (
-        <></>
-      )}
-    </svg>
+              {/** Viz Outline */}
+              <g>
+                <AxisLeft
+                  scale={yAxis}
+                  orientation="left"
+                  tickClassName="tick leftTick"
+                />
+                <AxisBottom
+                  scale={xAxis}
+                  orientation="bottom"
+                  top={boundsHeightInPixels}
+                  tickClassName="tick bottomTick"
+                />
+              </g>
+            </>
+          ) : (
+            <></>
+          )}
+        </svg>
+      </div>
+    </section>
   );
 };
 

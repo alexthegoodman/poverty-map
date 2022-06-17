@@ -24,9 +24,17 @@ export const StoryChapterList: StoryChapterList = [
       {
         title: "Real Need",
         cards: [
+          // {
+          //   sourceData: NutritionInformation,
+          //   col: 1,
+          // },
+          // {
+          //   sourceData: NutritionMapData,
+          //   col: 2,
+          // },
           {
             sourceData: NutritionRequirements,
-            col: 1,
+            col: 3,
           },
         ],
       },
