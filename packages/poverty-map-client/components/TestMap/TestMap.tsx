@@ -64,13 +64,23 @@ const TestMap: React.FC<TestMapProps> = ({ data = null }) => {
           })}
 
           <GeoJSONLayer
-            data={"/countries.geojson"}
+            data={"countries.geojson"}
             symbolLayout={{
               "text-field": "{place}",
               "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
               "text-offset": [0, 0.6],
               "text-anchor": "top",
             }}
+            fillPaint={{
+              "fill-color": "#787878",
+              "fill-opacity": [
+                "case",
+                ["boolean", ["feature-state", "hover"], false],
+                0.8,
+                0.5,
+              ],
+            }}
+            fillOnMouseMove={() => {}}
           />
 
           {/* <Layer
