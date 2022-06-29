@@ -31,7 +31,11 @@ const StoryNav: React.FC<StoryNavProps> = ({
                   state.selectedStory === i ? "selected" : "";
 
                 return (
-                  <li className={itemClassName} onClick={onItemClick}>
+                  <li
+                    key={`story-${i}`}
+                    className={itemClassName}
+                    onClick={onItemClick}
+                  >
                     <a href="#!">{story.title}</a>
                   </li>
                 );

@@ -28,13 +28,11 @@ const ChapterNav: React.FC<ChapterNavProps> = ({
                       state.selectedChapter === n ? "selected" : "";
 
                     return (
-                      <li className={itemClassName}>
+                      <li key={`chapter-${i}-${n}`} className={itemClassName}>
                         <a href="#!">{chapter.title}</a>
                       </li>
                     );
                   });
-                } else {
-                  return <></>;
                 }
               })}
             </>

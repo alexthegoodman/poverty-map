@@ -36,9 +36,19 @@ const VizGrid: React.FC<VizGridProps> = ({
               const { sourceData } = card;
 
               if (Array.isArray(sourceData.data[0])) {
-                return sourceData.data.map((vizData, n) => {
-                  return <BarViz analysisData={vizData} />;
-                });
+                return (
+                  <div key={`barVizWrapper-${i}`}>
+                    <span>{sourceData.info.title}</span>
+                    {sourceData.data.map((vizData, n) => {
+                      return (
+                        <BarViz
+                          key={`barViz-${i}-${n}`}
+                          analysisData={vizData}
+                        />
+                      );
+                    })}
+                  </div>
+                );
               }
             }
           })}

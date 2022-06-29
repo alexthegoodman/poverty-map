@@ -2,7 +2,13 @@ import * as React from "react";
 
 import { TestMapProps } from "./TestMap.d";
 
-import ReactMapboxGl, { Layer, Feature, Marker, Image } from "react-mapbox-gl";
+import ReactMapboxGl, {
+  Layer,
+  Feature,
+  Marker,
+  Image,
+  GeoJSONLayer,
+} from "react-mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import useEffect from "react";
 
@@ -30,36 +36,44 @@ const TestMap: React.FC<TestMapProps> = ({ data = null }) => {
         >
           {data.map((entity: any, index: number) => {
             return (
-              <>
-                <Marker
-                  key={`feature-${index}`}
-                  coordinates={[entity.coords.lat, entity.coords.lng]}
-                  anchor="bottom"
+              <Marker
+                key={`feature-${index}`}
+                coordinates={[entity.coords.lat, entity.coords.lng]}
+                anchor="bottom"
+                style={{
+                  display: "block",
+                  width: "10px",
+                  height: "10px",
+                  backgroundColor: "red",
+                }}
+                // tabIndex
+              >
+                <div
                   style={{
                     display: "block",
                     width: "10px",
                     height: "10px",
                     backgroundColor: "red",
+                    zIndex: 1000,
                   }}
-                  // tabIndex
                 >
-                  <div
-                    style={{
-                      display: "block",
-                      width: "10px",
-                      height: "10px",
-                      backgroundColor: "red",
-                      zIndex: 1000,
-                    }}
-                  >
-                    <span>{entity.metricB}</span>
-                  </div>
-                </Marker>
-              </>
+                  <span>{entity.metricB}</span>
+                </div>
+              </Marker>
             );
           })}
 
-          <Layer
+          <GeoJSONLayer
+            data={"/countries.geojson"}
+            symbolLayout={{
+              "text-field": "{place}",
+              "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+              "text-offset": [0, 0.6],
+              "text-anchor": "top",
+            }}
+          />
+
+          {/* <Layer
             type="raster"
             id="marker"
             layout={{ "icon-image": "image-uid" }}
@@ -73,7 +87,7 @@ const TestMap: React.FC<TestMapProps> = ({ data = null }) => {
                 // }}
               ></Image>
             </Feature>
-          </Layer>
+          </Layer> */}
 
           {/* <Layer
             id="3d-buildings"
